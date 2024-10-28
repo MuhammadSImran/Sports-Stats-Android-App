@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/scores_tab">
+
+    <fragment
+        android:id="@+id/scores_tab"
+        android:name="com.example.sportstrackerapp.ui.scores.ScoresFragment"
+        android:label="@string/scores_tab"
+        tools:layout="@layout/fragment_scores" />
+
+    <fragment
+        android:id="@+id/news_tab"
+        android:name="com.example.sportstrackerapp.ui.news.NewsFragment"
+        android:label="@string/news_tab"
+        tools:layout="@layout/fragment_news" />
+
+    <fragment
+        android:id="@+id/standings_tab"
+        android:name="com.example.sportstrackerapp.ui.standings.StandingsFragment"
+        android:label="@string/standings_tab"
+        tools:layout="@layout/fragment_standings" />
+
+    <fragment
+        android:id="@+id/highlights_tab"
+        android:name="com.example.sportstrackerapp.ui.highlights.HighlightsFragment"
+        android:label="@string/highlights_tab"
+        tools:layout="@layout/fragment_highlights" />
+
+    <fragment
+        android:id="@+id/fav_teams_tab"
+        android:name="com.example.sportstrackerapp.ui.favouriteTeams.FavouriteTeamsFragment"
+        android:label="@string/favourite_teams_tab"
+        tools:layout="@layout/fragment_favourite_teams" />
+</navigation>

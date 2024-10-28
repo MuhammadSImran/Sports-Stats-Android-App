@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/scores_tab"
+        android:icon="@drawable/scores"
+        android:title="@string/scores_tab" />
+
+    <item
+        android:id="@+id/news_tab"
+        android:icon="@drawable/news"
+        android:title="@string/news_tab" />
+
+    <item
+        android:id="@+id/standings_tab"
+        android:icon="@drawable/standings"
+        android:title="@string/standings_tab" />
+
+    <item
+        android:id="@+id/highlights_tab"
+        android:icon="@drawable/highlights"
+        android:title="@string/highlights_tab" />
+
+    <item
+        android:id="@+id/fav_teams_tab"
+        android:icon="@drawable/favourite_teams"
+        android:title="@string/favourite_teams_tab" />
+</menu>
