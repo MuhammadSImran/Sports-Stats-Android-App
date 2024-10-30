@@ -6,6 +6,7 @@
     <string name="highlights_tab">Highlights</string>
     <string name="favourite_teams_tab">Favourite Teams</string>
     <string name="profile">Profile</string>
+    <string name="article_image">Article Image</string>
 
 
     <!--Login strings (I deleted the login files but we will create them again when we need them -->

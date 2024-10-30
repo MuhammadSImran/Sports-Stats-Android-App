@@ -4,63 +4,46 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.sportstrackerapp.R;
 
-
-import com.example.sportstrackerapp.databinding.FragmentNewsBinding;
+import java.util.ArrayList;
 
 public class NewsFragment extends Fragment {
-
-    private FragmentNewsBinding binding;
     private NewsViewModel newsViewModel;
-    private NewsAdapter newsAdapter;
+    private ArticleAdapter articleAdapter;
+    private RecyclerView recyclerView;
 
+    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
-        binding = FragmentNewsBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_news, container, false);
 
-        RecyclerView recyclerView = binding.recyclerView;
-        ProgressBar progressBar = binding.progressBar;
-
+        recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        newsAdapter = new NewsAdapter(null);
-        recyclerView.setAdapter(newsAdapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
-        // Observe the articles LiveData
-        newsViewModel.getArticles().observe(getViewLifecycleOwner(), articles -> {
-            if (articles != null && !articles.isEmpty()) {
-                newsAdapter.setArticles(articles);
-                progressBar.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
-            } else {
-                progressBar.setVisibility(View.GONE);
-                Toast.makeText(getContext(), "No articles found", Toast.LENGTH_SHORT).show();
+
+        // Initialize an empty adapter to avoid the "No adapter attached" warning
+        articleAdapter = new ArticleAdapter(getContext(), new ArrayList<>());
+        recyclerView.setAdapter(articleAdapter);
+
+        // Initialize ViewModel and observe data
+        newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
+
+        newsViewModel.getNewsArticles("nhl").observe(getViewLifecycleOwner(), articles -> {
+            if (articles != null) {
+                articleAdapter = new ArticleAdapter(getContext(), articles);
+                recyclerView.setAdapter(articleAdapter);
             }
         });
 
-        // Observe error messages
-        newsViewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {
-            if (errorMessage != null) {
-                progressBar.setVisibility(View.GONE);
-                Toast.makeText(getContext(), "Error: " + errorMessage, Toast.LENGTH_LONG).show();
-            }
-        });
-
-        return root;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+        return view;
     }
 }

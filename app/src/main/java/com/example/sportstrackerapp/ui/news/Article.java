@@ -1,20 +1,40 @@
 package com.example.sportstrackerapp.ui.news;
 
 public class Article {
-    private String headline;
+    private String title;
     private String description;
-    private String published;
-    private String link;
+    private String url;
+    private String urlToImage;
 
-    // Getters
-    public String getHeadline() { return headline; }
-    public String getDescription() { return description; }
-    public String getPublished() { return published; }
-    public String getLink() { return link; }
+    public String getTitle() {
+        return title;
+    }
 
-    // Setters
-    public void setHeadline(String headline) { this.headline = headline; }
-    public void setDescription(String description) { this.description = description; }
-    public void setPublished(String published) { this.published = published; }
-    public void setLink(String link) { this.link = link; }
+    public String getDescription() {
+        return description;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getUrlToImage() {
+        return urlToImage;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setUrlToImage(String urlToImage) {
+        this.urlToImage = urlToImage;
+    }
 }
