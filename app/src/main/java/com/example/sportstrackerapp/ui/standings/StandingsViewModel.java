@@ -4,16 +4,17 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class StandingsViewModel extends ViewModel {
+public class StandingsViewModel extends ViewModel { // Use the repository & provide standings data to StandingsFragment
 
-    private final MutableLiveData<String> mText;
+    private LiveData<StandingsResponse> standings;
+    private final StandingsRepository standingsRepository;
 
     public StandingsViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+        standingsRepository = new StandingsRepository();
+        standings = standingsRepository.getStandings();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<StandingsResponse> getStandings() {
+        return standings;
     }
 }

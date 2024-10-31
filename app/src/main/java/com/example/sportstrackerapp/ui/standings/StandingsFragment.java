@@ -4,34 +4,41 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.sportstrackerapp.databinding.FragmentStandingsBinding;
+import com.example.sportstrackerapp.R;
+import com.example.sportstrackerapp.ui.news.ArticleAdapter;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.util.ArrayList;
 
 public class StandingsFragment extends Fragment {
+    private StandingsPagerAdapter standingPagerAdapter;
 
-    private FragmentStandingsBinding binding;
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        StandingsViewModel StandingsViewModel =
-                new ViewModelProvider(this).get(StandingsViewModel.class);
-
-        binding = FragmentStandingsBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        final TextView textView = binding.textStandings;
-        StandingsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
-    }
-
+    @Nullable
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_standings, container, false);
+
+        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
+        ViewPager2 viewPager = view.findViewById(R.id.viewPager);
+
+        standingPagerAdapter = new StandingsPagerAdapter(this);
+        viewPager.setAdapter(standingPagerAdapter);
+
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+            if (position == 0) {
+                tab.setText("Eastern Conference");
+            } else {
+                tab.setText("Western Conference");
+            }
+        }).attach();
+
+        return view;
     }
 }
