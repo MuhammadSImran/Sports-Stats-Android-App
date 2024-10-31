@@ -14,6 +14,7 @@ annotation = "1.6.0"
 retrofit = "2.9.0"
 okhttp = "4.9.1"
 glide = "4.12.0"
+androidsvg = "1.4"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -32,6 +33,7 @@ retrofitgsonconverter = { group = "com.squareup.retrofit2", name = "converter-gs
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 glidecompiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
+androidsvg = { group = "com.caverock", name = "androidsvg", version.ref = "androidsvg" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -1,19 +1,20 @@
 package com.example.sportstrackerapp.ui.scores;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import java.util.List;
 
 public class ScoresViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mText;
+    private final LiveData<List<GameWeek>> scores;
 
     public ScoresViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        ScoresRepository scoresRepository = new ScoresRepository();
+        scores = scoresRepository.getScores();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<List<GameWeek>> getScores() {
+        return scores;
     }
 }
