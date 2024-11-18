@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EasternConferenceFragment extends Fragment {  // eastern conference, showing atlantic & metropolitan divisions
+//    private StandingsAdapter atlanticAdapter;
+//    private StandingsAdapter metropolitanAdapter;
+
     private StandingsAdapter standingsAdapter;
 
     @Nullable
@@ -27,20 +30,28 @@ public class EasternConferenceFragment extends Fragment {  // eastern conference
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        standingsAdapter = new StandingsAdapter(new ArrayList<>());
+        standingsAdapter = new StandingsAdapter();
         recyclerView.setAdapter(standingsAdapter);
 
         StandingsViewModel standingsViewModel = new ViewModelProvider(this).get(StandingsViewModel.class);
         standingsViewModel.getStandings().observe(getViewLifecycleOwner(), standingsResponse -> {
             if (standingsResponse != null) {
                 // Filter for Eastern Conference teams
-                List<StandingsResponse.Standing> easternTeams = new ArrayList<>();
+                List<StandingsResponse.Standing> atlanticTeams = new ArrayList<>();
+                List<StandingsResponse.Standing> metropolitanTeams = new ArrayList<>();
+
                 for (StandingsResponse.Standing team : standingsResponse.getStandings()) {
-                    if ("Atlantic".equals(team.getDivisionName()) || "Metropolitan".equals(team.getDivisionName())) {
-                        easternTeams.add(team);
+                    if ("Atlantic".equals(team.getDivisionName())) {
+                        atlanticTeams.add(team);
+                    } else if ("Metropolitan".equals(team.getDivisionName())) {
+                        metropolitanTeams.add(team);
                     }
                 }
-                standingsAdapter.updateStandings(easternTeams);
+
+                standingsAdapter.setDivisionStandings(atlanticTeams, metropolitanTeams);
+
+//                atlanticAdapter.updateStandings(atlanticTeams);
+//                metropolitanAdapter.updateStandings(metropolitanTeams);
             }
         });
 

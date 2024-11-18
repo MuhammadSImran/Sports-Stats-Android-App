@@ -28,7 +28,7 @@ public class StandingsRepository {  // manages the API call to standings & handl
                     Log.d("StandingsRepository", "Data received: " + response.body().toString());
                     data.setValue(response.body());
                 } else {
-                    Log.e("StandingsRepository", "API call successful but response is null/empty");
+                    Log.e("StandingsRepository", "API call successful but response is empty");
                     data.setValue(null);
                 }
             }

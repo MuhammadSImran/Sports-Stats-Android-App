@@ -18,7 +18,10 @@ public class StandingsResponse {
         private int wins;
         private int losses;
         private int points;
-        private TeamName teamName;
+        private int otLosses;
+        private TeamCommonName teamCommonName;
+        @SerializedName("teamLogo")
+        private String teamLogo;
 
         public String getConferenceName() {
             return conferenceName;
@@ -40,19 +43,31 @@ public class StandingsResponse {
             return losses;
         }
 
+        public int getOtLosses() {
+            return otLosses;
+        }
+
         public int getPoints() {
             return points;
         }
 
-        public String getTeamDefaultName() {
-            if (teamName != null && teamName.getDefaultName() != null) {
-                return teamName.getDefaultName();
+        public String getTeamLogo() {
+            return teamLogo;
+        }
+
+        public void setTeamLogo(String teamLogo) {
+            this.teamLogo = teamLogo;
+        }
+
+        public String getTeamCommonName() {
+            if (teamCommonName != null && teamCommonName.getDefaultName() != null) {
+                return teamCommonName.getDefaultName();
             } else {
                 return "Unknown Team";
             }
         }
 
-        public static class TeamName {
+        public static class TeamCommonName {
             @SerializedName("default")  // maps default to defaultName
             private String defaultName;
 
@@ -60,5 +75,6 @@ public class StandingsResponse {
                 return defaultName;
             }
         }
+
     }
 }

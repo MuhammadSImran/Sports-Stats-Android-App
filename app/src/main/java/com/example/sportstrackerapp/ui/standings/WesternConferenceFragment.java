@@ -18,29 +18,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WesternConferenceFragment extends Fragment {  // western conference, showing central & pacific divisions
+//    private StandingsAdapter centralAdapter;
+//    private StandingsAdapter pacificAdapter;
+
     private StandingsAdapter standingsAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_conference_standings, container, false);
+
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        standingsAdapter = new StandingsAdapter(new ArrayList<>());
+        standingsAdapter = new StandingsAdapter();
         recyclerView.setAdapter(standingsAdapter);
 
         StandingsViewModel standingsViewModel = new ViewModelProvider(this).get(StandingsViewModel.class);
         standingsViewModel.getStandings().observe(getViewLifecycleOwner(), standingsResponse -> {
             if (standingsResponse != null) {
-                // filter for western Conference teams
-                List<StandingsResponse.Standing> westernTeams = new ArrayList<>();
+                // Filter for Western Conference teams
+                List<StandingsResponse.Standing> centralTeams = new ArrayList<>();
+                List<StandingsResponse.Standing> pacificTeams = new ArrayList<>();
+
                 for (StandingsResponse.Standing team : standingsResponse.getStandings()) {
-                    if ("Central".equals(team.getDivisionName()) || "Pacific".equals(team.getDivisionName())) {
-                        westernTeams.add(team);
+                    if ("Central".equals(team.getDivisionName())) {
+                        centralTeams.add(team);
+                    } else if ("Pacific".equals(team.getDivisionName())) {
+                        pacificTeams.add(team);
                     }
                 }
-                standingsAdapter.updateStandings(westernTeams);
+
+                standingsAdapter.setWesternDivisionStandings(centralTeams, pacificTeams);
+
+//                centralAdapter.updateStandings(centralTeams);
+//                pacificAdapter.updateStandings(pacificTeams);
             }
         });
 
