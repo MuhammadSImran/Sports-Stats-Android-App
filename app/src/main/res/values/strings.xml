@@ -8,6 +8,15 @@
     <string name="profile">Profile</string>
     <string name="article_image">Article Image</string>
 
+    <string name="team">Team</string>
+    <string name="games_played">GP</string>
+    <string name="wins">W</string>
+    <string name="losses">L</string>
+    <string name="over_time_losses">OTL</string>
+    <string name="points">PTS</string>
+    <string name="streak">STRK</string>
+    <string name="team_logo">Team Logo</string>
+
 
     <!--Login strings (I deleted the login files but we will create them again when we need them -->
     <string name="title_activity_profile">profile</string>
