@@ -26,6 +26,7 @@ public class StandingsRepository {  // manages the API call to standings & handl
             public void onResponse(Call<StandingsResponse> call, Response<StandingsResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Log.d("StandingsRepository", "Data received: " + response.body().toString());
+                    Log.d("StandingsRepository", "API Response: " + response.body().getStandings().size());
                     data.setValue(response.body());
                 } else {
                     Log.e("StandingsRepository", "API call successful but response is empty");

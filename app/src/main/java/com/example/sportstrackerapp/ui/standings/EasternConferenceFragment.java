@@ -30,6 +30,8 @@ public class EasternConferenceFragment extends Fragment {  // eastern conference
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        //recyclerView.setNestedScrollingEnabled(false);
+
         standingsAdapter = new StandingsAdapter();
         recyclerView.setAdapter(standingsAdapter);
 
@@ -49,6 +51,7 @@ public class EasternConferenceFragment extends Fragment {  // eastern conference
                 }
 
                 standingsAdapter.setDivisionStandings(atlanticTeams, metropolitanTeams);
+                standingsAdapter.notifyDataSetChanged();
 
 //                atlanticAdapter.updateStandings(atlanticTeams);
 //                metropolitanAdapter.updateStandings(metropolitanTeams);

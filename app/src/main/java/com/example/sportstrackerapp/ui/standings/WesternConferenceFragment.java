@@ -27,9 +27,10 @@ public class WesternConferenceFragment extends Fragment {  // western conference
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_conference_standings, container, false);
-
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        //recyclerView.setNestedScrollingEnabled(false);
 
         standingsAdapter = new StandingsAdapter();
         recyclerView.setAdapter(standingsAdapter);
@@ -50,6 +51,7 @@ public class WesternConferenceFragment extends Fragment {  // western conference
                 }
 
                 standingsAdapter.setWesternDivisionStandings(centralTeams, pacificTeams);
+                standingsAdapter.notifyDataSetChanged();
 
 //                centralAdapter.updateStandings(centralTeams);
 //                pacificAdapter.updateStandings(pacificTeams);

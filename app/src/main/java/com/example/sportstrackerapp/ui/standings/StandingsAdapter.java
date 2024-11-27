@@ -1,6 +1,7 @@
 package com.example.sportstrackerapp.ui.standings;
 
 import android.content.Context;
+import android.graphics.drawable.PictureDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.sportstrackerapp.R;
-
-//import coil.load;
-//import coil.decode.SvgDecoder;
-//import coil.request.ImageRequest;
-//import coil.request.CachePolicy;
+//import com.example.sportstrackerapp.ui.scores.GlideApp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,6 +86,7 @@ public class StandingsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else {
             TeamViewHolder teamHolder = (TeamViewHolder) holder;
             StandingsResponse.Standing team = (StandingsResponse.Standing) items.get(position);
+            Log.d("StandingsAdapter", "Binding team: " + team.getTeamCommonName());  // check if all the teams are being binded correctly
             teamHolder.bind(team);
         }
     }
@@ -109,11 +107,11 @@ public class StandingsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     static class TeamViewHolder extends RecyclerView.ViewHolder {
         TextView teamName, gamesPlayed, wins, losses, otLosses, points, streak;
-//        ImageView teamLogo;
+        ImageView teamLogo;
 
         public TeamViewHolder(@NonNull View itemView) {
             super(itemView);
-//            teamLogo = itemView.findViewById(R.id.team_logo);
+            teamLogo = itemView.findViewById(R.id.team_logo);
             teamName = itemView.findViewById(R.id.team_name);
             gamesPlayed = itemView.findViewById(R.id.games_played);
             wins = itemView.findViewById(R.id.wins);
@@ -130,13 +128,13 @@ public class StandingsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             otLosses.setText(String.valueOf(standing.getOtLosses()));
             points.setText(String.valueOf(standing.getPoints()));
 
-            // Log.d("StandingsAdapter", "Loading logo for team: " + standing.getTeamCommonName() + " URL: " + standing.getTeamLogo());
-            // This loads the team logos using coil from the nhl api
-//            teamLogo.load(standing.getTeamLogo());
-//            decoderFactory(SvgDecoder.Factory()); // makes sure coil uses the file type .svg
-//            placeholder(R.drawable.placeholder);
-//            error(R.drawable.placeholder);
-//            diskCachePolicy(CachePolicy.ENABLED);
+            // adds the teams logo using glide
+            Glide.with(itemView.getContext())
+                    .as(PictureDrawable.class)
+                    .placeholder(R.drawable.placeholder)
+                    .error(R.drawable.placeholder)
+                    .load(standing.getTeamLogo())
+                    .into(teamLogo);
         }
     }
 }
