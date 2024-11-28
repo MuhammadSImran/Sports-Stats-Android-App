@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.scores_tab, R.id.news_tab, R.id.standings_tab, R.id.highlights_tab, R.id.fav_teams_tab)
+                R.id.scores_tab, R.id.news_tab, R.id.standings_tab, R.id.highlights_tab, R.id.profile_tab)
                 .build();
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
