@@ -4,7 +4,7 @@
     <string name="news_tab">News</string>
     <string name="standings_tab">Standings</string>
     <string name="highlights_tab">Highlights</string>
-    <string name="favourite_teams_tab">Favourite Teams</string>
+    <string name="profile_tab">Profile</string>
     <string name="profile">Profile</string>
     <string name="article_image">Article Image</string>
 
@@ -17,6 +17,13 @@
     <string name="streak">STRK</string>
     <string name="team_logo">Team Logo</string>
 
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="create_account">Create Account</string>
+    <string name="save">Save</string>
+    <string name="back">Back</string>
+    <string name="logout">Logout</string>
 
     <!--Login strings (I deleted the login files but we will create them again when we need them -->
     <string name="title_activity_profile">profile</string>
