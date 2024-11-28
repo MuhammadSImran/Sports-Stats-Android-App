@@ -30,8 +30,8 @@
         tools:layout="@layout/fragment_highlights" />
 
     <fragment
-        android:id="@+id/fav_teams_tab"
-        android:name="com.example.sportstrackerapp.ui.favouriteTeams.FavouriteTeamsFragment"
-        android:label="@string/favourite_teams_tab"
-        tools:layout="@layout/fragment_favourite_teams" />
+        android:id="@+id/profile_tab"
+        android:name="com.example.sportstrackerapp.ui.profile.ProfileFragment"
+        android:label="@string/profile_tab"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
