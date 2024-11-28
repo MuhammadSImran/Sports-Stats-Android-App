@@ -22,7 +22,7 @@
         android:title="@string/highlights_tab" />
 
     <item
-        android:id="@+id/fav_teams_tab"
-        android:icon="@drawable/favourite_teams"
-        android:title="@string/favourite_teams_tab" />
+        android:id="@+id/profile_tab"
+        android:icon="@drawable/profile"
+        android:title="@string/profile_tab" />
 </menu>
