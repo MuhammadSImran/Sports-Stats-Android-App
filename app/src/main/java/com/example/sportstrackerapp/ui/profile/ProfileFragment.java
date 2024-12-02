@@ -9,15 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sportstrackerapp.R;
-import com.example.sportstrackerapp.databinding.FragmentProfileBinding;
 
 public class ProfileFragment extends Fragment {
 
@@ -27,13 +24,22 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        // Buttons
+        // UI Components
         EditText editUsername = root.findViewById(R.id.edit_username);
         EditText editPassword = root.findViewById(R.id.edit_password);
         Button buttonLogin = root.findViewById(R.id.button_login);
         Button buttonSignup = root.findViewById(R.id.button_signup);
 
         sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+
+        // Auto-fill saved username and password if available
+        String savedUsername = sharedPreferences.getString("savedUsername", null);
+        String savedPassword = sharedPreferences.getString("savedPassword", null);
+
+        if (savedUsername != null && savedPassword != null) {
+            editUsername.setText(savedUsername);
+            editPassword.setText(savedPassword);
+        }
 
         // Login functionality
         buttonLogin.setOnClickListener(v -> {
@@ -45,15 +51,18 @@ public class ProfileFragment extends Fragment {
                 return;
             }
 
-            String savedPassword = sharedPreferences.getString(username, null);
-            if (savedPassword != null && savedPassword.equals(password)) {
-                sharedPreferences.edit().putBoolean("isLoggedIn", true).apply();
-                sharedPreferences.edit().putString("username", username).apply();
+            String savedPasswordFromPrefs = sharedPreferences.getString(username, null);
+            if (savedPasswordFromPrefs != null && savedPasswordFromPrefs.equals(password)) {
+                sharedPreferences.edit()
+                        .putBoolean("isLoggedIn", true)
+                        .putString("savedUsername", username) // Save credentials for next session
+                        .putString("savedPassword", password)
+                        .apply();
 
                 // Navigate to LoginAcceptedFragment
                 requireActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.nav_host_fragment_activity_main, new LoginAcceptedFragment())
+                        .replace(R.id.fragment_profile, new LoginAcceptedFragment())
                         .commit();
                 editUsername.setVisibility(View.GONE);
                 editPassword.setVisibility(View.GONE);
@@ -68,11 +77,24 @@ public class ProfileFragment extends Fragment {
         buttonSignup.setOnClickListener(v -> {
             String username = editUsername.getText().toString().trim();
             String password = editPassword.getText().toString().trim();
+
             if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
                 Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
                 return;
             }
-            sharedPreferences.edit().putString(username, password).apply();
+
+            // Check if the username already exists
+            if (sharedPreferences.contains(username)) {
+                Toast.makeText(getContext(), "Username already taken. Please choose a different username.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Save the new account credentials
+            sharedPreferences.edit()
+                    .putString(username, password) // Save the new account credentials
+                    .putString("savedUsername", username) // Save credentials for next session
+                    .putString("savedPassword", password)
+                    .apply();
             Toast.makeText(getContext(), "Account created successfully", Toast.LENGTH_SHORT).show();
         });
 
