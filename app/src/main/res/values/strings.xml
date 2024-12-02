@@ -29,4 +29,5 @@
     <string name="select_fav_teams">Select Favourite Teams</string>
     <string name="enter_old_password">Enter old password</string>
     <string name="enter_new_password">Enter new password</string>
+    <string name="not_logged_in">Not logged in. To log in, click the profile tab.</string>
 </resources>
