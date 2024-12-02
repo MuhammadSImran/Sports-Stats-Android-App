@@ -30,4 +30,7 @@
     <string name="enter_old_password">Enter old password</string>
     <string name="enter_new_password">Enter new password</string>
     <string name="not_logged_in">Not logged in. To log in, click the profile tab.</string>
+
+    <string name="settings">Settings</string>
+    <string name="authors">Authors: Jacob Stryker, Ethan Katsiroubas, Muhammad Imran, Chidiebere Chukwuka, David Aschnaki </string>
 </resources>
