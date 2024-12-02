@@ -1,6 +1,11 @@
 package com.example.sportstrackerapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -11,6 +16,8 @@ import com.example.sportstrackerapp.databinding.ActivityMainBinding;
 import com.example.sportstrackerapp.ui.news.NewsFragment;
 import com.example.sportstrackerapp.ui.profile.ProfileFragment;
 import com.example.sportstrackerapp.ui.scores.ScoresFragment;
+import com.example.sportstrackerapp.ui.settings.SettingsActivity;
+import com.example.sportstrackerapp.ui.settings.SettingsFragment;
 import com.example.sportstrackerapp.ui.standings.StandingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -46,5 +53,20 @@ public class MainActivity extends AppCompatActivity {
         if (!navController.popBackStack()) {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_bar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
