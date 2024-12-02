@@ -28,6 +28,27 @@ public class ScoresRepository {
                     data.setValue(null);
                 }
             }
+
+            @Override
+            public void onFailure(@NonNull Call<ScoresResponse> call, @NonNull Throwable t) {
+                data.setValue(null);
+            }
+        });
+        return data;
+    }
+
+    public LiveData<List<GameWeek>> getScheduleForDate(String date) {
+        MutableLiveData<List<GameWeek>> data = new MutableLiveData<>();
+        apiService.getScheduleByDate(date).enqueue(new Callback<ScoresResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<ScoresResponse> call, @NonNull Response<ScoresResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    data.setValue(response.body().getGameWeek());
+                } else {
+                    data.setValue(null);
+                }
+            }
+
             @Override
             public void onFailure(@NonNull Call<ScoresResponse> call, @NonNull Throwable t) {
                 data.setValue(null);

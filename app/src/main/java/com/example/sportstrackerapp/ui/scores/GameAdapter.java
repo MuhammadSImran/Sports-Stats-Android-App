@@ -20,11 +20,12 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder> {
-
     private final List<Game> gameList;
+    private final boolean showScores;
 
-    public GameAdapter(List<Game> gameList) {
+    public GameAdapter(List<Game> gameList, boolean showScores) {
         this.gameList = gameList;
+        this.showScores = showScores;
     }
 
     @NonNull
@@ -39,12 +40,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
     public void onBindViewHolder(@NonNull GameViewHolder holder, int position) {
         Game game = gameList.get(position);
 
-        holder.teamNames.setText(String.format("%s vs %s",
-                game.getHomeTeam().getAbbrev(),
-                game.getAwayTeam().getAbbrev())
-        );
-        holder.gameTime.setText(formatGameTime(game.getGameTime()));
-
+        // Load team logos
         Glide.with(holder.itemView.getContext())
                 .load(game.getHomeTeam().getLogo())
                 .placeholder(R.drawable.placeholder)
@@ -56,22 +52,41 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.error_image)
                 .into(holder.awayTeamLogo);
+
+        // Set team scores
+        if (showScores) {
+            holder.homeTeamScore.setVisibility(View.VISIBLE);
+            holder.awayTeamScore.setVisibility(View.VISIBLE);
+
+            holder.homeTeamScore.setText(String.valueOf(game.getHomeTeam().getScore()));
+            holder.awayTeamScore.setText(String.valueOf(game.getAwayTeam().getScore()));
+        } else {
+            holder.homeTeamScore.setVisibility(View.GONE);
+            holder.awayTeamScore.setVisibility(View.GONE);
+        }
+
+        // Format and set date and time
+        String[] formattedDateTime = formatGameDateTime(game.getGameTime());
+        holder.gameDate.setText(formattedDateTime[0]); // Date
+        holder.gameTime.setText(formattedDateTime[1]); // Time
     }
 
-    private String formatGameTime(String utcTime) {
+    private String[] formatGameDateTime(String utcTime) {
         SimpleDateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
         utcFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-        SimpleDateFormat displayFormat = new SimpleDateFormat("MMM dd, yyyy @ h:mm a", Locale.getDefault());
-        displayFormat.setTimeZone(TimeZone.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+        SimpleDateFormat timeFormat = new SimpleDateFormat("@ h:mm a", Locale.getDefault());
+        dateFormat.setTimeZone(TimeZone.getDefault());
+        timeFormat.setTimeZone(TimeZone.getDefault());
 
         try {
             Date date = utcFormat.parse(utcTime);
             assert date != null;
-            return displayFormat.format(date);
+            return new String[]{dateFormat.format(date), timeFormat.format(date)};
         } catch (ParseException e) {
             e.printStackTrace();
-            return utcTime;
+            return new String[]{"Invalid Date", "Invalid Time"};
         }
     }
 
@@ -81,16 +96,21 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
     }
 
     public static class GameViewHolder extends RecyclerView.ViewHolder {
-        TextView teamNames, gameTime;//, scores;
-        ImageView awayTeamLogo, homeTeamLogo;
+        ImageView homeTeamLogo, awayTeamLogo;
+        TextView homeTeamScore, awayTeamScore, gameDate, gameTime;
 
         public GameViewHolder(@NonNull View itemView) {
             super(itemView);
-            teamNames = itemView.findViewById(R.id.teamNames);
-            gameTime = itemView.findViewById(R.id.gameTime);
-            //scores = itemView.findViewById(R.id.scores);
-            awayTeamLogo = itemView.findViewById(R.id.awayTeamLogo);
+
+            // Home and away team views
             homeTeamLogo = itemView.findViewById(R.id.homeTeamLogo);
+            awayTeamLogo = itemView.findViewById(R.id.awayTeamLogo);
+            homeTeamScore = itemView.findViewById(R.id.homeTeamScore);
+            awayTeamScore = itemView.findViewById(R.id.awayTeamScore);
+
+            // Date and time
+            gameDate = itemView.findViewById(R.id.gameDate);
+            gameTime = itemView.findViewById(R.id.gameTime);
         }
     }
 }

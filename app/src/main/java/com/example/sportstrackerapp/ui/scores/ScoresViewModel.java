@@ -6,15 +6,14 @@ import androidx.lifecycle.ViewModel;
 import java.util.List;
 
 public class ScoresViewModel extends ViewModel {
-
-    private final LiveData<List<GameWeek>> scores;
-
-    public ScoresViewModel() {
-        ScoresRepository scoresRepository = new ScoresRepository();
-        scores = scoresRepository.getScores();
-    }
+    private final ScoresRepository scoresRepository = new ScoresRepository();
+    private final LiveData<List<GameWeek>> scores = scoresRepository.getScores();
 
     public LiveData<List<GameWeek>> getScores() {
         return scores;
+    }
+
+    public LiveData<List<GameWeek>> getScheduleForDate(String date) {
+        return scoresRepository.getScheduleForDate(date);
     }
 }

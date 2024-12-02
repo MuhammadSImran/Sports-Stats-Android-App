@@ -1,19 +1,19 @@
 package com.example.sportstrackerapp.ui.scores;
 
 public class Team {
-    private final String abbrev;
     private final String logo;
+    private final int score;
 
-    public Team(String abbrev, String logo) {
-        this.abbrev = abbrev;
+    public Team(String logo, int score) {
         this.logo = logo;
-    }
-
-    public String getAbbrev() {
-        return abbrev;
+        this.score = score;
     }
 
     public String getLogo() {
         return logo;
+    }
+
+    public int getScore() {
+        return score;
     }
 }
