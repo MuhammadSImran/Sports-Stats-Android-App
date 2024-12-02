@@ -1,5 +1,6 @@
 package com.example.sportstrackerapp.ui.scores;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,7 +86,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
             assert date != null;
             return new String[]{dateFormat.format(date), timeFormat.format(date)};
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.e("GameAdapter", "Error with date");
             return new String[]{"Invalid Date", "Invalid Time"};
         }
     }
