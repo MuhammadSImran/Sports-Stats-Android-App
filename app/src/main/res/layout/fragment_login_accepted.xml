@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/login_accepted"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,12 +10,27 @@
         android:id="@+id/button_fav_teams"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select Favorite Teams"
+        android:text="@string/select_fav_teams"
         android:layout_marginBottom="16dp" />
 
     <Button
         android:id="@+id/logout_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Logout" />
+        android:text="@string/logout" />
+
+    <Button
+        android:id="@+id/change_password_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/change_password"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/delete_account_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_account"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="@android:color/holo_red_light" />
 </LinearLayout>
