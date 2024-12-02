@@ -3,7 +3,7 @@ package com.example.sportstrackerapp.ui.news;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import java.util.List;
-import com.example.sportstrackerapp.ApiClient;
+import com.example.sportstrackerapp.ui.news.ApiClient;
 
 public class NewsViewModel extends ViewModel {
     private final NewsRepository newsRepository;

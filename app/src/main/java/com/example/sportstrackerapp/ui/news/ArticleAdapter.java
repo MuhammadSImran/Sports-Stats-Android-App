@@ -64,4 +64,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
             imageView = itemView.findViewById(R.id.imageView);
         }
     }
+    
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
+        notifyDataSetChanged();
+    }
 }
