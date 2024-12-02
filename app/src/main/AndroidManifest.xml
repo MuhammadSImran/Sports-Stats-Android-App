@@ -21,7 +21,7 @@
             android:name=".ui.profile.ProfileFragment"
             android:exported="false" />
         <activity
-            android:name=".ui.profile.FavoriteTeamsFragment"
+            android:name=".ui.profile.FavouriteTeamsFragment"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
