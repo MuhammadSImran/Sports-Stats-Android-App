@@ -24,15 +24,9 @@
     <string name="save">Save</string>
     <string name="back">Back</string>
     <string name="logout">Logout</string>
-
-    <!--Login strings (I deleted the login files but we will create them again when we need them -->
-    <string name="title_activity_profile">profile</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
+    <string name="change_password">Change Password</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="select_fav_teams">Select Favourite Teams</string>
+    <string name="enter_old_password">Enter old password</string>
+    <string name="enter_new_password">Enter new password</string>
 </resources>
