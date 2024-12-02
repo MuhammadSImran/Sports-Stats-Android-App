@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Application de suivi sportif</string>
+    <string name="scores_tab">Scores</string>
+    <string name="news_tab">Actualités</string>
+    <string name="standings_tab">Classements</string>
+    <string name="highlights_tab">Temps forts</string>
+    <string name="profile_tab">Profil</string>
+    <string name="profile">Profil</string>
+    <string name="article_image">Image de l'article</string>
+
+    <string name="team">Équipe</string>
+    <string name="games_played">MJ</string>
+    <string name="wins">V</string>
+    <string name="losses">D</string>
+    <string name="over_time_losses">DP</string>
+    <string name="points">PTS</string>
+    <string name="streak">SÉRIE</string>
+    <string name="team_logo">Logo de l'équipe</string>
+
+    <string name="login">Connexion</string>
+    <string name="username">Nom d'utilisateur</string>
+    <string name="password">Mot de passe</string>
+    <string name="create_account">Créer un compte</string>
+    <string name="save">Sauvegarder</string>
+    <string name="back">Retour</string>
+    <string name="logout">Déconnexion</string>
+    <string name="change_password">Changer le mot de passe</string>
+    <string name="delete_account">Supprimer le compte</string>
+    <string name="select_fav_teams">Sélectionner des équipes favorites</string>
+    <string name="enter_old_password">Entrez l'ancien mot de passe</string>
+    <string name="enter_new_password">Entrez le nouveau mot de passe</string>
+    <string name="not_logged_in">Non connecté. Pour vous connecter, cliquez sur l'onglet profil.</string>
+
+    <string name="settings">Paramètres</string>
+    <string name="authors">Auteurs : Jacob Stryker, Ethan Katsiroubas, Muhammad Imran, Chidiebere Chukwuka, David Aschnaki</string>
+</resources>

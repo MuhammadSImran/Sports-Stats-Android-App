@@ -17,4 +17,10 @@
         android:layout_height="wrap_content"
         android:text="Notifications"
         android:layout_marginTop="16dp" />
+
+    <Switch
+        android:id="@+id/switch_theme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enable Dark Mode" />
 </LinearLayout>
