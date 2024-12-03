@@ -9,18 +9,19 @@
         android:id="@+id/button_help"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Help" />
+        android:text="@string/help" />
 
-    <Button
-        android:id="@+id/button_notifications"
+    <Switch
+        android:id="@+id/switch_notifications"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Notifications"
+        android:text="@string/enable_notifications"
         android:layout_marginTop="16dp" />
 
     <Switch
         android:id="@+id/switch_theme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enable Dark Mode" />
+        android:text="@string/enable_dark_mode" />
+
 </LinearLayout>

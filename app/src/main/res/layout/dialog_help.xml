@@ -12,9 +12,16 @@
         android:text="@string/authors" />
 
     <TextView
+        android:id="@+id/activity_version_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/activity_version_num" />
+
+    <TextView
         android:id="@+id/instructions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="@string/authors" />
+        android:text="@string/instructions" />
 </LinearLayout>
