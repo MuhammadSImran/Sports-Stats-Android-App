@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,10 +18,10 @@ import com.example.sportstrackerapp.R;
 
 import java.util.ArrayList;
 
-// Fragment for the news for every team
 public class AllNewsFragment extends Fragment {
     private NewsViewModel newsViewModel;
     private ArticleAdapter articleAdapter;
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -28,16 +29,21 @@ public class AllNewsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_all_news, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext())); // Updated
+        recyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)); // Updated
+        progressBar = view.findViewById(R.id.progressBar);
 
-        articleAdapter = new ArticleAdapter(getContext(), new ArrayList<>());
+        articleAdapter = new ArticleAdapter(requireContext(), new ArrayList<>()); // Updated
         recyclerView.setAdapter(articleAdapter);
 
-        newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
-        newsViewModel.getNewsArticles("nhl").observe(getViewLifecycleOwner(), articles -> {
+        progressBar.setVisibility(View.VISIBLE);
+
+        newsViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(requireActivity().getApplication()))
+                .get(NewsViewModel.class);
+        newsViewModel.getNewsArticles("nhl", requireContext()).observe(getViewLifecycleOwner(), articles -> { // Updated
+            progressBar.setVisibility(View.GONE);
             if (articles != null) {
-                articleAdapter.setArticles(articles);
+                articleAdapter.setArticles(ArticleMapper.mapToDomainList(articles));
             }
         });
 

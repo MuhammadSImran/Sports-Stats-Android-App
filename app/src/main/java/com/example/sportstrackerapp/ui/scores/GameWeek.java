@@ -13,4 +13,3 @@ public class GameWeek {
         return games;
     }
 }
-

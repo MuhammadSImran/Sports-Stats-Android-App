@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +34,7 @@ public class ScoresFragment extends Fragment {
     private ScoresViewModel scoresViewModel;
     private final List<Game> gameList = new ArrayList<>();
     private RecyclerView recyclerView;
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -41,6 +43,7 @@ public class ScoresFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.recyclerViewScores);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         scoresViewModel = new ViewModelProvider(this).get(ScoresViewModel.class);
+        progressBar = rootView.findViewById(R.id.progressBar);
 
         Button btnPastGames = rootView.findViewById(R.id.btnPastGames);
         Button btnTodayGames = rootView.findViewById(R.id.btnTodayGames);
@@ -139,7 +142,9 @@ public class ScoresFragment extends Fragment {
     }
 
     private void getGames(String date, boolean showScores, boolean exactDate) {
+        showLoading();  // shows the progress bar
         scoresViewModel.getScheduleForDate(date).observe(getViewLifecycleOwner(), gameWeeks -> {
+            hideLoading(); // hides the progress bar
             if (gameWeeks != null) {
                 gameList.clear();
                 for (GameWeek gameWeek : gameWeeks) {
@@ -161,6 +166,16 @@ public class ScoresFragment extends Fragment {
                 Log.d("ScoresFragment", "No games found for date: " + date);
             }
         });
+    }
+
+    private void showLoading() {
+        progressBar.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+    }
+
+    private void hideLoading() {
+        progressBar.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
     }
 
     @SuppressLint("NotifyDataSetChanged")

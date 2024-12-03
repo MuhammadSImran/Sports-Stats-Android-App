@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,10 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EasternConferenceFragment extends Fragment {  // eastern conference, showing atlantic & metropolitan divisions
-//    private StandingsAdapter atlanticAdapter;
-//    private StandingsAdapter metropolitanAdapter;
-
     private StandingsAdapter standingsAdapter;
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -29,14 +28,15 @@ public class EasternConferenceFragment extends Fragment {  // eastern conference
         View view = inflater.inflate(R.layout.fragment_conference_standings, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        //recyclerView.setNestedScrollingEnabled(false);
+        progressBar = view.findViewById(R.id.progressBarStandings);
 
         standingsAdapter = new StandingsAdapter();
         recyclerView.setAdapter(standingsAdapter);
 
         StandingsViewModel standingsViewModel = new ViewModelProvider(this).get(StandingsViewModel.class);
+        progressBar.setVisibility(View.VISIBLE);
         standingsViewModel.getStandings().observe(getViewLifecycleOwner(), standingsResponse -> {
+            progressBar.setVisibility(View.GONE);
             if (standingsResponse != null) {
                 // Filter for Eastern Conference teams
                 List<StandingsResponse.Standing> atlanticTeams = new ArrayList<>();
@@ -52,9 +52,6 @@ public class EasternConferenceFragment extends Fragment {  // eastern conference
 
                 standingsAdapter.setDivisionStandings(atlanticTeams, metropolitanTeams);
                 standingsAdapter.notifyDataSetChanged();
-
-//                atlanticAdapter.updateStandings(atlanticTeams);
-//                metropolitanAdapter.updateStandings(metropolitanTeams);
             }
         });
 

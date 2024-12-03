@@ -1,24 +1,25 @@
 package com.example.sportstrackerapp.ui.news;
 
+import android.app.Application;
+import android.content.Context;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
+
 import java.util.List;
-import com.example.sportstrackerapp.ui.news.ApiClient;
 
-public class NewsViewModel extends ViewModel {
+public class NewsViewModel extends AndroidViewModel {
     private final NewsRepository newsRepository;
-    private LiveData<List<Article>> newsArticles;
 
-    public NewsViewModel() {
-        // Initialize NewsRepository with an instance of NewsApiService
+    public NewsViewModel(@NonNull Application application) {
+        super(application);
         NewsApiService apiService = ApiClient.getRetrofit().create(NewsApiService.class);
-        newsRepository = new NewsRepository(apiService);
+        ArticleDatabase database = ArticleDatabase.getInstance(application.getApplicationContext());
+        newsRepository = new NewsRepository(apiService, database);
     }
 
-    public LiveData<List<Article>> getNewsArticles(String query) {
-        if (newsArticles == null) {
-            newsArticles = newsRepository.getNewsArticles(query);
-        }
-        return newsArticles;
+    public LiveData<List<ArticleEntity>> getNewsArticles(String query, Context context) {
+        return newsRepository.getNewsArticles(query, getApplication());
     }
 }

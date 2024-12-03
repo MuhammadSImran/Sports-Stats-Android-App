@@ -20,15 +20,10 @@ public class SettingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_settings, container, false);
 
         Button helpButton = view.findViewById(R.id.button_help);
-        Button notificationsButton = view.findViewById(R.id.button_notifications);
 
         // Handle button clicks
         helpButton.setOnClickListener(v -> {
             // Navigate to HelpFragment or perform help-related actions
-        });
-
-        notificationsButton.setOnClickListener(v -> {
-            // Navigate to NotificationsFragment or handle notifications settings
         });
 
         return view;

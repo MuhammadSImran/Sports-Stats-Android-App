@@ -33,9 +33,9 @@ public class StandingsFragment extends Fragment {
 
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             if (position == 0) {
-                tab.setText("Eastern Conference");
+                tab.setText(getString(R.string.eastern_conference));
             } else {
-                tab.setText("Western Conference");
+                tab.setText(getString(R.string.western_conference));
             }
         }).attach();
 

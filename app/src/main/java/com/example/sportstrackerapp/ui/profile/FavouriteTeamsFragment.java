@@ -2,6 +2,7 @@ package com.example.sportstrackerapp.ui.profile;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,9 +72,9 @@ public class FavouriteTeamsFragment extends Fragment {
                     favouriteTeams.add(checkBox.getText().toString());
                 }
             }
-            sharedPreferences.edit().putStringSet("favouriteTeams_" + currentUser, favouriteTeams).apply();
+            //sharedPreferences.edit().putStringSet("favouriteTeams_" + currentUser, favouriteTeams).apply();
+            new SaveFavouritesTask(sharedPreferences, currentUser, favouriteTeams).execute();
         });
-
         return root;
     }
 
@@ -91,5 +92,24 @@ public class FavouriteTeamsFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         sharedPreferences = null;
+    }
+
+    // Uses AsyncTask to save the favourite teams data
+    private static class SaveFavouritesTask extends AsyncTask<Void, Void, Void> {
+        private final SharedPreferences sharedPreferences;
+        private final String currentUser;
+        private final Set<String> favouriteTeams;
+
+        SaveFavouritesTask(SharedPreferences sharedPreferences, String currentUser, Set<String> favouriteTeams) {
+            this.sharedPreferences = sharedPreferences;
+            this.currentUser = currentUser;
+            this.favouriteTeams = favouriteTeams;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            sharedPreferences.edit().putStringSet("favouriteTeams_" + currentUser, favouriteTeams).apply();
+            return null;
+        }
     }
 }

@@ -114,4 +114,10 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
             gameTime = itemView.findViewById(R.id.gameTime);
         }
     }
+
+    public void updateGames(List<Game> newGameList) {
+        gameList.clear();
+        gameList.addAll(newGameList);
+        notifyDataSetChanged();
+    }
 }

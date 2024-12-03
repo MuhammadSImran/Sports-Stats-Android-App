@@ -59,7 +59,7 @@ public class LoginAcceptedFragment extends Fragment {
         // Change password functionality
         changePasswordButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-            builder.setTitle("Change Password");
+            builder.setTitle(getString(R.string.change_password));
 
             // Input fields for old and new password
             View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_change_password, null);
@@ -67,29 +67,29 @@ public class LoginAcceptedFragment extends Fragment {
             EditText newPasswordInput = dialogView.findViewById(R.id.new_password_input);
             builder.setView(dialogView);
 
-            builder.setPositiveButton("Change", (dialog, which) -> {
+            builder.setPositiveButton(getString(R.string.change), (dialog, which) -> {
                 String oldPassword = oldPasswordInput.getText().toString().trim();
                 String newPassword = newPasswordInput.getText().toString().trim();
 
                 String savedPassword = sharedPreferences.getString(currentUsername, null);
                 if (savedPassword != null && savedPassword.equals(oldPassword)) {
                     sharedPreferences.edit().putString(currentUsername, newPassword).apply();
-                    Toast.makeText(requireContext(), "Password changed successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), getString(R.string.password_change_successful), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(requireContext(), "Incorrect old password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), getString(R.string.incorrect_old_password), Toast.LENGTH_SHORT).show();
                 }
             });
 
-            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+            builder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
             builder.create().show();
         });
 
         // Delete account functionality
         deleteAccountButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-            builder.setTitle("Delete Account")
-                    .setMessage("Are you sure you want to delete your account? This action cannot be undone.")
-                    .setPositiveButton("Delete", (dialog, which) -> {
+            builder.setTitle(getString(R.string.delete_account))
+                    .setMessage(getString(R.string.delete_message))
+                    .setPositiveButton(getString(R.string.delete), (dialog, which) -> {
                         // Use the captured value of currentUsername
                         String usernameToDelete = sharedPreferences.getString("savedUsername", null);
                         if (usernameToDelete != null) {
@@ -103,7 +103,7 @@ public class LoginAcceptedFragment extends Fragment {
                             editor.apply();
 
                             // Notify the user
-                            Toast.makeText(requireContext(), "Account deleted successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), getString(R.string.account_delete_successful), Toast.LENGTH_SHORT).show();
 
                             // Navigate back to ProfileFragment
                             requireActivity().getSupportFragmentManager()
@@ -112,7 +112,7 @@ public class LoginAcceptedFragment extends Fragment {
                                     .commit();
                         }
                     })
-                    .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                    .setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.dismiss())
                     .create()
                     .show();
         });

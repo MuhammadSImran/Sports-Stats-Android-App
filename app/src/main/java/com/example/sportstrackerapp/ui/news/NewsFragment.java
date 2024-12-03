@@ -28,9 +28,9 @@ public class NewsFragment extends Fragment {
 
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             if (position == 0) {
-                tab.setText("All News");
+                tab.setText(getString(R.string.all_news));
             } else {
-                tab.setText("Favourite");
+                tab.setText(getString(R.string.favourites));
             }
         }).attach();
 

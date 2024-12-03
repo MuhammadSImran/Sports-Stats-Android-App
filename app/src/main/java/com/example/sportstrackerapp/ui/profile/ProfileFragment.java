@@ -47,7 +47,7 @@ public class ProfileFragment extends Fragment {
             String password = editPassword.getText().toString().trim();
 
             if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
-                Toast.makeText(getContext(), "Please fill all the fields", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.please_fill_all_fields), Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -69,7 +69,7 @@ public class ProfileFragment extends Fragment {
                 buttonLogin.setVisibility(View.GONE);
                 buttonSignup.setVisibility(View.GONE);
             } else {
-                Toast.makeText(getContext(), "Invalid Username or Password", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.invalid_username_or_password), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -79,13 +79,13 @@ public class ProfileFragment extends Fragment {
             String password = editPassword.getText().toString().trim();
 
             if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
-                Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.please_fill_all_fields), Toast.LENGTH_SHORT).show();
                 return;
             }
 
             // Check if the username already exists
             if (sharedPreferences.contains(username)) {
-                Toast.makeText(getContext(), "Username already taken. Please choose a different username.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.username_already_taken), Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -95,7 +95,7 @@ public class ProfileFragment extends Fragment {
                     .putString("savedUsername", username) // Save credentials for next session
                     .putString("savedPassword", password)
                     .apply();
-            Toast.makeText(getContext(), "Account created successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.account_created_successfully), Toast.LENGTH_SHORT).show();
         });
 
         return root;

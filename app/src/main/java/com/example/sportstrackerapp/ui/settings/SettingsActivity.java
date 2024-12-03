@@ -63,10 +63,12 @@ public class SettingsActivity extends AppCompatActivity {
                     .show();
         });
 
-        // Notifications button
-        Button notificationsButton = findViewById(R.id.button_notifications);
-        notificationsButton.setOnClickListener(v -> {
-            // Opens notification dialog (not implemented yet)
+        // Handle the notifications switch
+        Switch switchNotifications = findViewById(R.id.switch_notifications);
+        boolean areNotificationsEnabled = sharedPreferences.getBoolean("notificationsEnabled", true);
+        switchNotifications.setChecked(areNotificationsEnabled);
+        switchNotifications.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            sharedPreferences.edit().putBoolean("notificationsEnabled", isChecked).apply();
         });
     }
 

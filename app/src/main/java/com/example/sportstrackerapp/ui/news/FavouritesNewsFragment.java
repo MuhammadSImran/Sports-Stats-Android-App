@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sportstrackerapp.R;
+import com.example.sportstrackerapp.ui.settings.NotificationHelper;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -30,6 +32,7 @@ public class FavouritesNewsFragment extends Fragment {
     private Set<String> favouriteTeams;
     private SharedPreferences sharedPreferences;
     private String currentUser;
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -39,6 +42,7 @@ public class FavouritesNewsFragment extends Fragment {
         TextView textViewNotLoggedIn = view.findViewById(R.id.textViewNotLoggedIn);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        progressBar = view.findViewById(R.id.progressBar);
 
         articleAdapter = new ArticleAdapter(getContext(), new ArrayList<>());
         recyclerView.setAdapter(articleAdapter);
@@ -57,8 +61,10 @@ public class FavouritesNewsFragment extends Fragment {
             recyclerView.setVisibility(View.VISIBLE);
             loadFavouriteTeams(currentUser);
 
+            progressBar.setVisibility(View.VISIBLE);
             newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
-            newsViewModel.getNewsArticles("nhl").observe(getViewLifecycleOwner(), articles -> {
+            newsViewModel.getNewsArticles("nhl", getContext()).observe(getViewLifecycleOwner(), articles -> {
+                progressBar.setVisibility(View.GONE);
                 if (articles != null) {
                     List<Article> favouriteArticles = filterFavouriteArticles(articles);
                     articleAdapter.setArticles(favouriteArticles);
@@ -77,17 +83,44 @@ public class FavouritesNewsFragment extends Fragment {
 //        }
     }
 
-    private List<Article> filterFavouriteArticles(List<Article> articles) {
+    private List<Article> filterFavouriteArticles(List<ArticleEntity> articles) {
         List<Article> favouriteArticles = new ArrayList<>();
-        for (Article article : articles) {
-            String content = article.getTitle() + " " + article.getDescription();
+        List<Article> domainArticles = ArticleMapper.mapToDomainList(articles);
+
+        // Retrieve previously saved article IDs
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
+        Set<String> savedArticleIds = sharedPreferences.getStringSet("savedArticles", new HashSet<>());
+
+        Set<String> newArticleIds = new HashSet<>();
+        for (Article article : domainArticles) {
+            String content = (article.getTitle() != null ? article.getTitle() : "") +
+                    " " +
+                    (article.getDescription() != null ? article.getDescription() : "");
+
             for (String team : favouriteTeams) {
                 if (content.toLowerCase().contains(team.toLowerCase())) {
                     favouriteArticles.add(article);
+
+                    // Check if the article is new
+                    String articleId = article.getUrl();
+                    if (!savedArticleIds.contains(articleId)) {
+                        newArticleIds.add(articleId);
+
+                        // Send a notification for the new article
+                        NotificationHelper.sendNotification(
+                                requireContext(),
+                                "New Article Posted!",
+                                article.getTitle()
+                        );
+                    }
                     break;
                 }
             }
         }
+        // Save new article IDs
+        savedArticleIds.addAll(newArticleIds);
+        sharedPreferences.edit().putStringSet("savedArticles", savedArticleIds).apply();
+
         return favouriteArticles;
     }
 }
