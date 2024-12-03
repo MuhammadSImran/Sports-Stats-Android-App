@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Application de suivi sportif</string>
-    <string name="scores_tab">Scores</string>
+    <string name="app_name">HockeyMoyeu</string>
+    <string name="scores_tab">Partitions</string>
     <string name="news_tab">Actualités</string>
     <string name="standings_tab">Classements</string>
     <string name="highlights_tab">Temps forts</string>
@@ -8,16 +8,24 @@
     <string name="profile">Profil</string>
     <string name="article_image">Image de l\'article</string>
 
+    <string name="all_news">Toutes les actualités</string>
+    <string name="favourites">Favoris</string>
+
+    <string name="eastern_conference">Conférence Est</string>
+    <string name="western_conference">Conférence Ouest</string>
+    <string name="atlantic_division">Division Atlantique</string>
+    <string name="metropolitan_division">Division métropolitaine</string>
+    <string name="central_division">Division centrale</string>
+    <string name="pacific_division">Division Pacifique</string>
     <string name="team">Équipe</string>
-    <string name="games_played">MJ</string>
-    <string name="wins">V</string>
-    <string name="losses">D</string>
-    <string name="over_time_losses">DP</string>
+    <string name="games_played">GP</string>
+    <string name="wins">W</string>
+    <string name="losses">L</string>
+    <string name="over_time_losses">OTL</string>
     <string name="points">PTS</string>
-    <string name="streak">SÉRIE</string>
     <string name="team_logo">Logo de l\'équipe</string>
 
-    <string name="login">Connexion</string>
+    <string name="login">Se connecter</string>
     <string name="username">Nom d\'utilisateur</string>
     <string name="password">Mot de passe</string>
     <string name="create_account">Créer un compte</string>
@@ -30,17 +38,32 @@
     <string name="enter_old_password">Entrez l\'ancien mot de passe</string>
     <string name="enter_new_password">Entrez le nouveau mot de passe</string>
     <string name="not_logged_in">Non connecté. Pour vous connecter, cliquez sur l\'onglet profil.</string>
-    <!---Scores Fragment Strings-->
-    <string name="past_scores_button">Past 7 Days</string>
-    <string name="select_date_scores_button">Select Date</string>
-    <string name="future_schedule_button">Next 7 Days</string>
-    <string name="today_schedule_button">Today\'s Games</string>
-    <string name="home_label">Home</string>
-    <string name="away_label">Away</string>
-    <string name="home_team_logo">Home Team Logo</string>
-    <string name="away_team_logo">Away Team Logo</string>
+    <string name="delete_message">Êtes-vous sûr de vouloir supprimer votre compte? Cette action ne peut pas être annulée.</string>
+    <string name="delete">Supprimer</string>
+    <string name="cancel">Annuler</string>
+    <string name="change">Changement</string>
+    <string name="password_change_successful">Mot de passe modifié avec succès</string>
+    <string name="incorrect_old_password">Ancien mot de passe incorrect</string>
+    <string name="account_delete_successful">Compte supprimé avec succès</string>
+    <string name="please_fill_all_fields">Veuillez remplir tous les champs</string>
+    <string name="account_created_successfully">Compte créé avec succès</string>
+    <string name="username_already_taken">Nom d\'utilisateur déjà pris. Veuillez choisir un autre nom d\'utilisateur.</string>
+    <string name="invalid_username_or_password">Nom d\'utilisateur ou mot de passe invalide</string>
+
+    <string name="past_scores_button">7 derniers jours</string>
+    <string name="select_date_scores_button">Sélectionnez une date</string>
+    <string name="future_schedule_button">7 prochains jours</string>
+    <string name="today_schedule_button">Les jeux du jour</string>
+    <string name="home_label">Maison</string>
+    <string name="away_label">Visiteurs</string>
+    <string name="home_team_logo">Logo de l\'équipe à domicile</string>
+    <string name="away_team_logo">Away team logo</string>
 
     <string name="settings">Paramètres</string>
     <string name="authors">Auteurs : Jacob Stryker, Ethan Katsiroubas, Muhammad Imran, Chidiebere Chukwuka, David Aschnaki</string>
-
+    <string name="activity_version_num">Numéro de version de l\'activité: 1.0</string>
+    <string name="instructions">Instructions: </string>
+    <string name="enable_notifications">Activer les notifications d\'actualités de l\'équipe favorite</string>
+    <string name="help">Aide</string>
+    <string name="enable_dark_mode">Activer le mode sombre</string>
 </resources>
