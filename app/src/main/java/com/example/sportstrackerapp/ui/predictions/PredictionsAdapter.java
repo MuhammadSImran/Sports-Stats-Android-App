@@ -34,30 +34,25 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         GameData game = gamesList.get(position);
+
         holder.homeTeam.setText(game.getHomeTeam());
         holder.awayTeam.setText(game.getAwayTeam());
         holder.homeOdds.setText(game.getHomeOdds());
         holder.awayOdds.setText(game.getAwayOdds());
 
-        // finds which team has better odds using the getBetterOddsTeam() helper method
-        String betterOddsTeam = getBetterOddsTeam(
-                game.getHomeTeam(),
-                game.getAwayTeam(),
-                game.getHomeOdds(),
-                game.getAwayOdds()
-        );
+        // Set text color based on which team has better odds
+        double homeOddsValue = Double.parseDouble(game.getHomeOdds().replace("%", "").trim());
+        double awayOddsValue = Double.parseDouble(game.getAwayOdds().replace("%", "").trim());
 
-        if (betterOddsTeam.equals(game.getHomeTeam())) {
+        if (homeOddsValue > awayOddsValue) {
             holder.homeOdds.setTextColor(Color.GREEN);
             holder.awayOdds.setTextColor(Color.RED);
-        } else if (betterOddsTeam.equals(game.getAwayTeam())) {
+        } else {
             holder.homeOdds.setTextColor(Color.RED);
             holder.awayOdds.setTextColor(Color.GREEN);
-        } else { // Equal odds case
-            holder.homeOdds.setTextColor(Color.GRAY);
-            holder.awayOdds.setTextColor(Color.GRAY);
         }
 
+        // Load team logos using Glide
         Glide.with(holder.homeLogo.getContext())
                 .load(game.getHomeLogoUrl())
                 .into(holder.homeLogo);

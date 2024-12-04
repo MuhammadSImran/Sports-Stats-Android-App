@@ -94,15 +94,28 @@ public class PredictionsFragment extends Fragment {
                         String homeName = homeTeam.getJSONObject("name").getString("default");
                         String awayName = awayTeam.getJSONObject("name").getString("default");
 
+                        // Convert odds to probabilities
                         int homeOddsValue = homeTeam.getJSONArray("odds").getJSONObject(0).getInt("value");
                         int awayOddsValue = awayTeam.getJSONArray("odds").getJSONObject(0).getInt("value");
 
-                        String homeOddsPercentage = convertOddsToPercentage(homeOddsValue);
-                        String awayOddsPercentage = convertOddsToPercentage(awayOddsValue);
+                        double homeOddsPercentage = calculateProbability(homeOddsValue);
+                        double awayOddsPercentage = 100.0 - homeOddsPercentage; // Losing team's odds
+
+                        // Ensure the better odds are for the team with higher probability
+                        if (awayOddsPercentage > homeOddsPercentage) {
+                            // Swap values if away team has better odds
+                            double temp = homeOddsPercentage;
+                            homeOddsPercentage = awayOddsPercentage;
+                            awayOddsPercentage = temp;
+                        }
+
+                        String homeOdds = String.format("%.2f%%", homeOddsPercentage);
+                        String awayOdds = String.format("%.2f%%", awayOddsPercentage);
 
                         String homeLogoUrl = homeTeam.getString("logo");
                         String awayLogoUrl = awayTeam.getString("logo");
-                        gamesList.add(new GameData(homeName, awayName, homeOddsPercentage, awayOddsPercentage, homeLogoUrl, awayLogoUrl));
+
+                        gamesList.add(new GameData(homeName, awayName, homeOdds, awayOdds, homeLogoUrl, awayLogoUrl));
                     }
 
                     if (getActivity() != null) {
@@ -120,16 +133,13 @@ public class PredictionsFragment extends Fragment {
                 }
             }
 
-            // helper method to convert the odds to a percentage
-            private String convertOddsToPercentage(int odds) {
-                double probability;
-
-                if (odds < 0) {  // negative
-                    probability = ((-1.0 * odds) / ((-1.0 * odds) + 100)) * 100;
-                } else {  // positive
-                    probability = (100.0 / (odds + 100)) * 100;
+            // Helper method to calculate the probability from betting odds
+            private double calculateProbability(int odds) {
+                if (odds < 0) { // Negative odds
+                    return ((-1.0 * odds) / ((-1.0 * odds) + 100)) * 100;
+                } else { // Positive odds
+                    return (100.0 / (odds + 100)) * 100;
                 }
-                return String.format("%.2f%%", probability);
             }
         });
     }
