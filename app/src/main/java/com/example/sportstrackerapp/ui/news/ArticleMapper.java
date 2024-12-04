@@ -18,7 +18,7 @@ public class ArticleMapper {
         return articles;
     }
 
-    // Convert a list of Article objects to a list of ArticleEntity objects
+    // Convert the list of Article objects to a list of ArticleEntity objects
     public static List<ArticleEntity> mapToEntityList(List<Article> articles) {
         List<ArticleEntity> articleEntities = new ArrayList<>();
         for (Article article : articles) {

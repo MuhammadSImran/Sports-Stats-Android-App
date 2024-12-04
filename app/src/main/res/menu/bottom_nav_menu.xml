@@ -17,9 +17,9 @@
         android:title="@string/standings_tab" />
 
     <item
-        android:id="@+id/highlights_tab"
-        android:icon="@drawable/highlights"
-        android:title="@string/highlights_tab" />
+        android:id="@+id/predictions_tab"
+        android:icon="@drawable/predictions"
+        android:title="@string/predictions_tab" />
 
     <item
         android:id="@+id/profile_tab"

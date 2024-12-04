@@ -37,7 +37,7 @@ public class FavouritesNewsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_all_news, container, false); // Reuse layout
+        View view = inflater.inflate(R.layout.fragment_all_news, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         TextView textViewNotLoggedIn = view.findViewById(R.id.textViewNotLoggedIn);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -52,11 +52,11 @@ public class FavouritesNewsFragment extends Fragment {
         // Check if the user is logged in
         currentUser = sharedPreferences.getString("savedUsername", null);
         if (currentUser == null) {
-            // User is not logged in, display a message and hide the RecyclerView
+            // if user isn't logged in it displays a message and hides the recyclerview
             textViewNotLoggedIn.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         } else {
-            // User is logged in, load their favourite teams and articles
+            // if user is logged in it loads their favourite teams and articles
             textViewNotLoggedIn.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
             loadFavouriteTeams(currentUser);
@@ -76,18 +76,12 @@ public class FavouritesNewsFragment extends Fragment {
 
     private void loadFavouriteTeams(String currentUser) {
         favouriteTeams = sharedPreferences.getStringSet("favouriteTeams_" + this.currentUser, new HashSet<>());
-//        favouriteTeams = new HashSet<>();
-//        if (getContext() != null) {
-//            favouriteTeams = getContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-//                    .getStringSet("favouriteTeams_" + FavouriteTeamsFragment.currentUser, new HashSet<>());
-//        }
     }
 
     private List<Article> filterFavouriteArticles(List<ArticleEntity> articles) {
         List<Article> favouriteArticles = new ArrayList<>();
         List<Article> domainArticles = ArticleMapper.mapToDomainList(articles);
 
-        // Retrieve previously saved article IDs
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
         Set<String> savedArticleIds = sharedPreferences.getStringSet("savedArticles", new HashSet<>());
 
@@ -100,13 +94,11 @@ public class FavouritesNewsFragment extends Fragment {
             for (String team : favouriteTeams) {
                 if (content.toLowerCase().contains(team.toLowerCase())) {
                     favouriteArticles.add(article);
-
-                    // Check if the article is new
+                    // checks if the article is new
                     String articleId = article.getUrl();
                     if (!savedArticleIds.contains(articleId)) {
                         newArticleIds.add(articleId);
-
-                        // Send a notification for the new article
+                        // sends a notification for the new article
                         NotificationHelper.sendNotification(
                                 requireContext(),
                                 "New Article Posted!",
@@ -117,7 +109,6 @@ public class FavouritesNewsFragment extends Fragment {
                 }
             }
         }
-        // Save new article IDs
         savedArticleIds.addAll(newArticleIds);
         sharedPreferences.edit().putStringSet("savedArticles", savedArticleIds).apply();
 

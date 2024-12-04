@@ -24,10 +24,10 @@
         tools:layout="@layout/fragment_standings" />
 
     <fragment
-        android:id="@+id/highlights_tab"
-        android:name="com.example.sportstrackerapp.ui.highlights.HighlightsFragment"
-        android:label="@string/highlights_tab"
-        tools:layout="@layout/fragment_highlights" />
+        android:id="@+id/predictions_tab"
+        android:name="com.example.sportstrackerapp.ui.predictions.PredictionsFragment"
+        android:label="@string/predictions_tab"
+        tools:layout="@layout/fragment_predictions" />
 
     <fragment
         android:id="@+id/profile_tab"

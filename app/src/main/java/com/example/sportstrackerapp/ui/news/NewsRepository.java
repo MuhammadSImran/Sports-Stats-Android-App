@@ -21,7 +21,7 @@ public class NewsRepository {
     public NewsRepository(NewsApiService apiService, ArticleDatabase database) {
         this.apiService = apiService;
         this.articleDao = database.articleDao();
-        this.executorService = Executors.newSingleThreadExecutor(); // For background tasks
+        this.executorService = Executors.newSingleThreadExecutor();
     }
 
     public LiveData<List<ArticleEntity>> getNewsArticles(String query, Context context) {
@@ -34,21 +34,19 @@ public class NewsRepository {
                             List<Article> articles = response.body().getArticles();
                             List<ArticleEntity> articleEntities = ArticleMapper.mapToEntityList(articles);
 
-                            // Save to database on a background thread
+                            // saves to the database on a background thread
                             executorService.execute(() -> {
                                 articleDao.clearArticles();
                                 articleDao.insertArticles(articleEntities);
                                 liveData.postValue(articleEntities);
                             });
                         } else {
-                            // Use stored data if API fails
+                            // use stored data if the api fails
                             liveData.postValue(articleDao.getAllArticles().getValue());
                         }
                     }
-
                     @Override
                     public void onFailure(Call<NewsResponse> call, Throwable t) {
-                        // Use stored data on failure
                         liveData.postValue(articleDao.getAllArticles().getValue());
                     }
                 });

@@ -29,18 +29,18 @@ public class AllNewsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_all_news, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext())); // Updated
-        recyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)); // Updated
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         progressBar = view.findViewById(R.id.progressBar);
 
-        articleAdapter = new ArticleAdapter(requireContext(), new ArrayList<>()); // Updated
+        articleAdapter = new ArticleAdapter(requireContext(), new ArrayList<>());
         recyclerView.setAdapter(articleAdapter);
 
         progressBar.setVisibility(View.VISIBLE);
 
         newsViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(requireActivity().getApplication()))
                 .get(NewsViewModel.class);
-        newsViewModel.getNewsArticles("nhl", requireContext()).observe(getViewLifecycleOwner(), articles -> { // Updated
+        newsViewModel.getNewsArticles("nhl", requireContext()).observe(getViewLifecycleOwner(), articles -> {
             progressBar.setVisibility(View.GONE);
             if (articles != null) {
                 articleAdapter.setArticles(ArticleMapper.mapToDomainList(articles));

@@ -3,7 +3,7 @@
     <string name="scores_tab">Scores</string>
     <string name="news_tab">News</string>
     <string name="standings_tab">Standings</string>
-    <string name="highlights_tab">Highlights</string>
+    <string name="predictions_tab">Predictions</string>
     <string name="profile_tab">Profile</string>
     <string name="profile">Profile</string>
     <string name="article_image">Article Image</string>
@@ -66,4 +66,9 @@
     <string name="enable_notifications">Enable News Notifications from Favourite Teams</string>
     <string name="help">Help</string>
     <string name="enable_dark_mode">Enable Dark Mode</string>
+    <string name="scores_tab_instructions">Scores Tab: See the NHL games playing today, in the past 7 days, or in the next 7 days. Click the calendar icon to find NHL games in a specific date.</string>
+    <string name="news_tab_instructions">News Tab: See all the news going on in the NHL. Select "Favourites" to see NHL news for your favourite teams.</string>
+    <string name="standings_tab_instructions">Standings Tab: Displays the eastern conference and western confernece standings. Swipre left and right to navigate between conferences. Scroll down to see the divisions.</string>
+    <string name="profile_tab_instructions">
+Profile Tab: Type in your username and password and select "Create Account", then "Login" to make an account. Here you can Select your favourite teams so you can see news for only those teams. </string>
 </resources>

@@ -3,7 +3,7 @@
     <string name="scores_tab">Partitions</string>
     <string name="news_tab">Actualités</string>
     <string name="standings_tab">Classements</string>
-    <string name="highlights_tab">Temps forts</string>
+    <string name="predictions_tab">Prédictions</string>
     <string name="profile_tab">Profil</string>
     <string name="profile">Profil</string>
     <string name="article_image">Image de l\'article</string>
@@ -66,4 +66,9 @@
     <string name="enable_notifications">Activer les notifications d\'actualités de l\'équipe favorite</string>
     <string name="help">Aide</string>
     <string name="enable_dark_mode">Activer le mode sombre</string>
+    <string name="scores_tab_instructions">Onglet Scores : consultez les matchs de la LNH joués aujourd\'hui, au cours des 7 derniers jours ou dans les 7 prochains jours. Cliquez sur l\'icône du calendrier pour rechercher les matchs de la LNH à une date spécifique.</string>
+    <string name="news_tab_instructions">Onglet Actualités : découvrez toutes les actualités de la LNH. Sélectionnez « Favoris » pour voir les actualités de la LNH pour vos équipes préférées.</string>
+    <string name="standings_tab_instructions">Onglet Classement : affiche le classement de la conférence Est et de la conférence Ouest. Faites glisser votre doigt vers la gauche et la droite pour naviguer entre les conférences. Faites défiler vers le bas pour voir les divisions.</string>
+    <string name="profile_tab_instructions">
+Onglet Profil: saisissez votre nom d\'utilisateur et votre mot de passe et sélectionnez "Créer un compte", puis "Connexion" pour créer un compte. Ici, vous pouvez sélectionner vos équipes préférées afin de pouvoir voir les actualités de ces équipes uniquement.</string>
 </resources>

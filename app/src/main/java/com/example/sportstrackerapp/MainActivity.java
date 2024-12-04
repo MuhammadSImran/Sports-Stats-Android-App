@@ -10,18 +10,12 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.example.sportstrackerapp.databinding.ActivityMainBinding;
-import com.example.sportstrackerapp.ui.news.NewsFragment;
-import com.example.sportstrackerapp.ui.profile.ProfileFragment;
-import com.example.sportstrackerapp.ui.scores.ScoresFragment;
 import com.example.sportstrackerapp.ui.settings.SettingsActivity;
-import com.example.sportstrackerapp.ui.settings.SettingsFragment;
-import com.example.sportstrackerapp.ui.standings.StandingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.scores_tab, R.id.news_tab, R.id.standings_tab, R.id.highlights_tab, R.id.profile_tab)
+                R.id.scores_tab, R.id.news_tab, R.id.standings_tab, R.id.predictions_tab, R.id.profile_tab)
                 .build();
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
