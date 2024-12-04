@@ -2,14 +2,18 @@ package com.example.sportstrackerapp.ui.scores;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,8 +30,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.TimeZone;
 
 public class ScoresFragment extends Fragment {
@@ -35,6 +41,11 @@ public class ScoresFragment extends Fragment {
     private final List<Game> gameList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
+    private CheckBox filterFavoritesCheckbox;
+    private String currentUser;
+    private Set<String> favoriteTeams;
+    Boolean showScores = false;
+    Boolean showFavourites = false;
 
     @Nullable
     @Override
@@ -49,18 +60,26 @@ public class ScoresFragment extends Fragment {
         Button btnTodayGames = rootView.findViewById(R.id.btnTodayGames);
         Button btnFutureGames = rootView.findViewById(R.id.btnFutureGames);
         ImageButton btnDatePicker = rootView.findViewById(R.id.btnDatePicker);
+        filterFavoritesCheckbox = rootView.findViewById(R.id.filter_favorites_checkbox);
+
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        currentUser = sharedPreferences.getString("savedUsername", null);
+        favoriteTeams = sharedPreferences.getStringSet("favouriteTeams_" + currentUser, new HashSet<>());
 
         btnPastGames.setOnClickListener(v -> {
+            showScores = true;
             getGamesForPast();
             highlightSelectedButton(btnPastGames, btnTodayGames, btnFutureGames, btnDatePicker);
         });
 
         btnTodayGames.setOnClickListener(v -> {
+            showScores = false;
             getGamesForToday();
             highlightSelectedButton(btnTodayGames, btnPastGames, btnFutureGames, btnDatePicker);
         });
 
         btnFutureGames.setOnClickListener(v -> {
+            showScores = false;
             getGamesForFuture();
             highlightSelectedButton(btnFutureGames, btnPastGames, btnTodayGames, btnDatePicker);
         });
@@ -70,25 +89,55 @@ public class ScoresFragment extends Fragment {
             highlightSelectedButton(btnDatePicker, btnPastGames, btnTodayGames, btnFutureGames);
         });
 
+        filterFavoritesCheckbox.setOnClickListener(v -> OnCheckChanged());
+
         getGamesForToday();
+
         highlightSelectedButton(btnTodayGames, btnPastGames, btnFutureGames, btnDatePicker);
 
         return rootView;
     }
 
+    public void OnCheckChanged(){
+        if (currentUser == null) {
+            Toast.makeText(requireContext().getApplicationContext(), "You are not logged in. Please login to view favourite teams.", Toast.LENGTH_SHORT).show();
+            if(filterFavoritesCheckbox.isChecked()) {
+                filterFavoritesCheckbox.toggle();
+            }
+        } else{
+            if(filterFavoritesCheckbox.isChecked()) {
+                showFavourites = true;
+                filterGames();
+            } else{
+                showFavourites = false;
+                updateRecyclerView(gameList);
+            }
+        }
+    }
+
+    private void filterGames() {
+        List<Game> filteredGames = new ArrayList<>();
+        for (Game game : gameList) {
+            if (favoriteTeams.contains(game.getHomeTeam().getName()) || favoriteTeams.contains(game.getAwayTeam().getName())) {
+                filteredGames.add(game);
+            }
+        }
+        updateRecyclerView(filteredGames);
+    }
+
     private void getGamesForPast() {
         String pastGames = getPastDate();
-        getGames(pastGames, true, false);
+        getGames(pastGames, false);
     }
 
     private void getGamesForToday() {
         String today = getCurrentDate();
-        getGames(today, false, true);
+        getGames(today, true);
     }
 
     private void getGamesForFuture() {
         String tomorrow = getTomorrowDate();
-        getGames(tomorrow, false, false);
+        getGames(tomorrow, false);
     }
 
     private void showDatePicker() {
@@ -96,8 +145,8 @@ public class ScoresFragment extends Fragment {
         DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),
                 (view, year, month, dayOfMonth) -> {
                     String selectedDate = String.format(Locale.getDefault(), "%04d-%02d-%02d", year, month + 1, dayOfMonth);
-                    boolean isPastDate = isDatePast(selectedDate);
-                    getGames(selectedDate, isPastDate, true);
+                    showScores = isDatePast(selectedDate);
+                    getGames(selectedDate, true);
                 },
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
@@ -141,7 +190,7 @@ public class ScoresFragment extends Fragment {
         }
     }
 
-    private void getGames(String date, boolean showScores, boolean exactDate) {
+    private void getGames(String date, boolean exactDate) {
         showLoading();  // shows the progress bar
         scoresViewModel.getScheduleForDate(date).observe(getViewLifecycleOwner(), gameWeeks -> {
             hideLoading(); // hides the progress bar
@@ -161,7 +210,11 @@ public class ScoresFragment extends Fragment {
                         }
                     }
                 }
-                updateRecyclerView(showScores);
+                if (showFavourites){
+                    filterGames();
+                }else {
+                    updateRecyclerView(gameList);
+                }
             } else {
                 Log.d("ScoresFragment", "No games found for date: " + date);
             }
@@ -179,8 +232,8 @@ public class ScoresFragment extends Fragment {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private void updateRecyclerView(boolean showScores) {
-        GameAdapter gameAdapter = new GameAdapter(gameList, showScores);
+    private void updateRecyclerView(List<Game> games) {
+        GameAdapter gameAdapter = new GameAdapter(games, showScores);
         recyclerView.setAdapter(gameAdapter);
         gameAdapter.notifyDataSetChanged();
     }

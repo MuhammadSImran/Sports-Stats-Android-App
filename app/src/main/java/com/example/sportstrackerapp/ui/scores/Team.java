@@ -1,16 +1,20 @@
 package com.example.sportstrackerapp.ui.scores;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Team {
-//    private final String placeName;
-//    private final String commonName;
+    private final Name commonName;
     private final String logo;
     private final int score;
 
-    public Team(String logo, int score) {
-//        this.placeName = placeName;
-//        this.commonName = commonName;
+    public Team(Name commonName, String logo, int score) {
+        this.commonName = commonName;
         this.logo = logo;
         this.score = score;
+    }
+
+    public String getName() {
+        return commonName.getDefaultName();
     }
 
     public String getLogo() {
@@ -21,7 +25,16 @@ public class Team {
         return score;
     }
 
-//    public String getName() {
-//        return placeName + " " + commonName;
-//    }
+    public static class Name {
+        @SerializedName("default")
+        private final String defaultName;
+
+        public Name(String defaultName) {
+            this.defaultName = defaultName;
+        }
+
+        public String getDefaultName() {
+            return defaultName;
+        }
+    }
 }

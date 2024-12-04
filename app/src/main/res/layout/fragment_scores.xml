@@ -11,6 +11,13 @@
         android:layout_gravity="center"
         android:visibility="gone" />
 
+    <CheckBox
+        android:id="@+id/filter_favorites_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/favourite_teams_scores" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

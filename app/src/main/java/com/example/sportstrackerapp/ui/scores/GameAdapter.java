@@ -41,7 +41,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
     public void onBindViewHolder(@NonNull GameViewHolder holder, int position) {
         Game game = gameList.get(position);
 
-        // Load team logos
         Glide.with(holder.itemView.getContext())
                 .load(game.getHomeTeam().getLogo())
                 .placeholder(R.drawable.placeholder)
@@ -54,7 +53,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
                 .error(R.drawable.error_image)
                 .into(holder.awayTeamLogo);
 
-        // Set team scores
         if (showScores) {
             holder.homeTeamScore.setVisibility(View.VISIBLE);
             holder.awayTeamScore.setVisibility(View.VISIBLE);
@@ -66,7 +64,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
             holder.awayTeamScore.setVisibility(View.GONE);
         }
 
-        // Format and set date and time
         String[] formattedDateTime = formatGameDateTime(game.getGameTime());
         holder.gameDate.setText(formattedDateTime[0]); // Date
         holder.gameTime.setText(formattedDateTime[1]); // Time
@@ -103,13 +100,11 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
         public GameViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            // Home and away team views
             homeTeamLogo = itemView.findViewById(R.id.homeTeamLogo);
             awayTeamLogo = itemView.findViewById(R.id.awayTeamLogo);
             homeTeamScore = itemView.findViewById(R.id.homeTeamScore);
             awayTeamScore = itemView.findViewById(R.id.awayTeamScore);
 
-            // Date and time
             gameDate = itemView.findViewById(R.id.gameDate);
             gameTime = itemView.findViewById(R.id.gameTime);
         }

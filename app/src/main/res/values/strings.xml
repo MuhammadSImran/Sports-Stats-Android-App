@@ -58,6 +58,7 @@
     <string name="away_label">Away</string>
     <string name="home_team_logo">Home Team Logo</string>
     <string name="away_team_logo">Away Team Logo</string>
+    <string name="favourite_teams_scores">Favourite Teams</string>
 
     <string name="settings">Settings</string>
     <string name="authors">Authors: Jacob Stryker, Ethan Katsiroubas, Muhammad Imran, Chidiebere Chukwuka, David Aschnaki </string>
@@ -71,4 +72,5 @@
     <string name="standings_tab_instructions">Standings Tab: Displays the eastern conference and western confernece standings. Swipre left and right to navigate between conferences. Scroll down to see the divisions.</string>
     <string name="profile_tab_instructions">
 Profile Tab: Type in your username and password and select "Create Account", then "Login" to make an account. Here you can Select your favourite teams so you can see news for only those teams. </string>
+
 </resources>
