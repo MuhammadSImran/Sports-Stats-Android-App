@@ -12,8 +12,18 @@
         android:layout_gravity="center"
         android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold"
+        android:text="@string/predictions_today" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPredictions"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="670dp" />
 </LinearLayout>
