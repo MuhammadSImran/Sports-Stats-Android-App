@@ -42,6 +42,10 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.1") // Use latest version
     implementation("androidx.navigation:navigation-ui-ktx:2.7.1")
     implementation(libs.constraintlayout)
+    implementation(libs.room.common)
+    implementation(libs.room.common.jvm)
+    implementation(libs.room.runtime)
+    implementation(libs.play.services.games)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -54,5 +58,6 @@ dependencies {
     implementation (libs.glide)
     annotationProcessor (libs.glidecompiler)
     implementation(libs.androidsvg)
+    annotationProcessor(libs.room.compiler)
 
 }
